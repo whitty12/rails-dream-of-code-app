@@ -1,0 +1,12 @@
+<% content_for :title, "Editing trimester" %>
+
+<h1>Editing trimester</h1>
+
+<%= render "form", trimester: @trimester %>
+
+<br>
+
+<div>
+  <%= link_to "Show this trimester", @trimester %> |
+  <%= link_to "Back to trimesters", trimesters_path %>
+</div>

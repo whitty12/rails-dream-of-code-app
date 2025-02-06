@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Mentor trimester signups" %>
+
+<h1>Mentor trimester signups</h1>
+
+<div id="mentor_trimester_signups">
+  <% @mentor_trimester_signups.each do |mentor_trimester_signup| %>
+    <%= render mentor_trimester_signup %>
+    <p>
+      <%= link_to "Show this mentor trimester signup", mentor_trimester_signup %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New mentor trimester signup", new_mentor_trimester_signup_path %>

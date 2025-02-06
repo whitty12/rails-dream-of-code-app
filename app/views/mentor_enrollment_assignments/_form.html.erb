@@ -1,0 +1,27 @@
+<%= form_with(model: mentor_enrollment_assignment) do |form| %>
+  <% if mentor_enrollment_assignment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(mentor_enrollment_assignment.errors.count, "error") %> prohibited this mentor_enrollment_assignment from being saved:</h2>
+
+      <ul>
+        <% mentor_enrollment_assignment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :mentor_id, style: "display: block" %>
+    <%= form.text_field :mentor_id %>
+  </div>
+
+  <div>
+    <%= form.label :enrollment_id, style: "display: block" %>
+    <%= form.text_field :enrollment_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

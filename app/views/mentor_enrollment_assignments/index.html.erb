@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Mentor enrollment assignments" %>
+
+<h1>Mentor enrollment assignments</h1>
+
+<div id="mentor_enrollment_assignments">
+  <% @mentor_enrollment_assignments.each do |mentor_enrollment_assignment| %>
+    <%= render mentor_enrollment_assignment %>
+    <p>
+      <%= link_to "Show this mentor enrollment assignment", mentor_enrollment_assignment %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New mentor enrollment assignment", new_mentor_enrollment_assignment_path %>

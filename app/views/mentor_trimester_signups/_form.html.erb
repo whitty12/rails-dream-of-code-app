@@ -1,0 +1,32 @@
+<%= form_with(model: mentor_trimester_signup) do |form| %>
+  <% if mentor_trimester_signup.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(mentor_trimester_signup.errors.count, "error") %> prohibited this mentor_trimester_signup from being saved:</h2>
+
+      <ul>
+        <% mentor_trimester_signup.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :mentor_id, style: "display: block" %>
+    <%= form.text_field :mentor_id %>
+  </div>
+
+  <div>
+    <%= form.label :trimester_id, style: "display: block" %>
+    <%= form.text_field :trimester_id %>
+  </div>
+
+  <div>
+    <%= form.label :max_courses, style: "display: block" %>
+    <%= form.number_field :max_courses %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

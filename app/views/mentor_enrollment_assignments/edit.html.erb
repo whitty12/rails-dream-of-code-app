@@ -1,0 +1,12 @@
+<% content_for :title, "Editing mentor enrollment assignment" %>
+
+<h1>Editing mentor enrollment assignment</h1>
+
+<%= render "form", mentor_enrollment_assignment: @mentor_enrollment_assignment %>
+
+<br>
+
+<div>
+  <%= link_to "Show this mentor enrollment assignment", @mentor_enrollment_assignment %> |
+  <%= link_to "Back to mentor enrollment assignments", mentor_enrollment_assignments_path %>
+</div>

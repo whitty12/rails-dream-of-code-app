@@ -1,0 +1,37 @@
+<%= form_with(model: mentor) do |form| %>
+  <% if mentor.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(mentor.errors.count, "error") %> prohibited this mentor from being saved:</h2>
+
+      <ul>
+        <% mentor.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :first_name, style: "display: block" %>
+    <%= form.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= form.label :last_name, style: "display: block" %>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :max_concurrent_students, style: "display: block" %>
+    <%= form.number_field :max_concurrent_students %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

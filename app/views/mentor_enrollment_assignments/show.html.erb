@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @mentor_enrollment_assignment %>
+
+<div>
+  <%= link_to "Edit this mentor enrollment assignment", edit_mentor_enrollment_assignment_path(@mentor_enrollment_assignment) %> |
+  <%= link_to "Back to mentor enrollment assignments", mentor_enrollment_assignments_path %>
+
+  <%= button_to "Destroy this mentor enrollment assignment", @mentor_enrollment_assignment, method: :delete %>
+</div>
