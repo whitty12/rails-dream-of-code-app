@@ -1,15 +1,11 @@
 Rails.application.routes.draw do
   resources :users
-  #resources :trimesters
-  get "/trimesters", to: "trimesters#index"
-  get "/dashboard", to: "admin_dashboard#index"
   resources :submissions
   resources :students
   resources :mentors
-  resources :mentor_trimester_signups
+  resources :enrollments
   resources :mentor_enrollment_assignments
   resources :lessons
-  resources :enrollments
   resources :courses
   resources :coding_classes
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
