@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :users
-  resources :submissions
   resources :students
   resources :mentors
   resources :enrollments

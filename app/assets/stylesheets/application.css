@@ -8,3 +8,12 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+.header {
+	background-color: #eee;
+	padding-left: 40px;
+}
+
+.main-container {
+	margin-top: 20px;
+}

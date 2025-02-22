@@ -1,3 +1,0 @@
-class AdminDashboardController < ApplicationController
-
-end
