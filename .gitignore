@@ -1,2 +1,5 @@
 tmp
 vendor
+.DS_Store
+log
+storage
