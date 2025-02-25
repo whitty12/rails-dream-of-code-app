@@ -55,7 +55,7 @@ RSpec.describe Course, type: :model do
     # to happen when we call the method in each scenario
     context 'when there are NO students enrolled in the course' do
       # No additional data to set up in this scenario
-      it 'returns an array of student names' do
+      it 'returns an empty' do
         expect(course.student_name_list).to eq([])
       end
     end

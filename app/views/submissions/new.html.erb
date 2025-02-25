@@ -1,11 +1,32 @@
-<% content_for :title, "New submission" %>
+<h1>New Submission for <%= @course.title %></h1>
 
-<h1>New submission</h1>
+<%= form_with(model: [@course, @submission], local: true) do |form| %>
+  <% if @submission.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+      <ul>
+        <% @submission.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= render "form", submission: @submission %>
+  <div class="form-group">
+    <%= form.label :lesson, {}, { class: 'form-text' } %>
+    <%= form.select :lesson_id, options_from_collection_for_select(@lessons, :id, :title), { prompt: 'Select Lesson' }, { class: 'form-control' } %>
+  </div>
 
-<br>
+  <div class="form-group">
+    <%= form.label :student, {}, { class: 'form-text' } %>
+    <%= form.select :enrollment_id, options_from_collection_for_select(@enrollments, :id, :student_name), { prompt: 'Select Student' }, { class: 'form-control' } %>
+  </div>
 
-<div>
-  <%= link_to "Back to submissions", submissions_path %>
-</div>
+  <div class="form-group">
+    <%= form.label :url, 'URL', class: 'form-text' %>
+    <%= form.text_field :url, class: 'form-control' %>
+  </div>
+
+  <hr />
+  <%= form.submit 'Submit', class: 'btn btn-primary' %>
+<% end %>

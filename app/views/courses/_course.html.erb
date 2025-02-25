@@ -1,13 +1,20 @@
 <div id="<%= dom_id course %>">
   <p>
     <strong>Coding class:</strong>
-    <%= course.coding_class_id %>
+    <%= course.coding_class.title %>
   </p>
 
   <p>
     <strong>Trimester:</strong>
-    <%= course.trimester_id %>
+    <%= "#{course.trimester.term} #{course.trimester.year}" %>
   </p>
+
+  <strong>Enrolled students</strong>
+  <ul>
+    <% course.enrollments.each do |enrollment| %>
+      <li><%= enrollment.student.full_name %></li>
+    <% end %>
+  </ul>
 
   <p>
     <strong>Max enrollment:</strong>

@@ -1,70 +1,36 @@
 class SubmissionsController < ApplicationController
-  before_action :set_submission, only: %i[ show edit update destroy ]
-
-  # GET /submissions or /submissions.json
-  def index
-    @submissions = Submission.all
-  end
-
-  # GET /submissions/1 or /submissions/1.json
-  def show
-  end
-
   # GET /submissions/new
   def new
+    @course = Course.find(params[:course_id])
     @submission = Submission.new
+    @enrollments # TODO: What set of enrollments should be listed in the dropdown?
+    @lessons # TODO: What set of lessons should be listed in the dropdown?
+  end
+
+  def create
+    @course = Course.find(params[:course_id])
+    @submission = Submission.new(submission_params)
+
+    if @submission.save
+      redirect_to course_path(@course), notice: 'Submission was successfully created.'
+    else
+      @enrollments # TODO: Set this up just as in the new action
+      @lessons # TODO: Set this up just as in the new action
+      render :new
+    end
   end
 
   # GET /submissions/1/edit
   def edit
   end
 
-  # POST /submissions or /submissions.json
-  def create
-    @submission = Submission.new(submission_params)
-
-    respond_to do |format|
-      if @submission.save
-        format.html { redirect_to @submission, notice: "Submission was successfully created." }
-        format.json { render :show, status: :created, location: @submission }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @submission.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PATCH/PUT /submissions/1 or /submissions/1.json
   def update
-    respond_to do |format|
-      if @submission.update(submission_params)
-        format.html { redirect_to @submission, notice: "Submission was successfully updated." }
-        format.json { render :show, status: :ok, location: @submission }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @submission.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /submissions/1 or /submissions/1.json
-  def destroy
-    @submission.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to submissions_path, status: :see_other, notice: "Submission was successfully destroyed." }
-      format.json { head :no_content }
-    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_submission
-      @submission = Submission.find(params.expect(:id))
-    end
-
     # Only allow a list of trusted parameters through.
     def submission_params
-      params.expect(submission: [ :lesson_id, :student_id, :mentor_id, :review_result, :submitted_at, :reviewed_at ])
+      params.require(:submission).permit(:lesson_id, :enrollment_id, :mentor_id, :review_result, :reviewed_at)
     end
 end

@@ -87,10 +87,10 @@ Course.all.each do |course|
 end
 
 # Create enrollments for past and current trimesters
-Trimester.where("start_date < '2025-05-01'").each do |trimesters|
+Trimester.where("start_date < '2025-05-01'").each do |trimester|
 
   # Create 10 enrollments for each of the intro courses
-  intro_course = Course.find_by(trimester_id: trimesters.id, coding_class_id: CodingClass.find_by(title: 'Intro to Programming'))
+  intro_course = Course.find_by(trimester_id: trimester.id, coding_class_id: CodingClass.find_by(title: 'Intro to Programming'))
 
   (1..10).each do |i|
     student = Student.find_or_create_by!(
@@ -108,8 +108,8 @@ Trimester.where("start_date < '2025-05-01'").each do |trimesters|
   end
 
   # For advanced courses, pick from intro students from previous trimester
-  advanced_courses = Course.where.not(id: intro_course.id)
-  previous_trimester = Trimester.find_by(id: trimesters.id - 1)
+  advanced_courses = Course.where(trimester_id: trimester.id).where.not(id: intro_course.id)
+  previous_trimester = Trimester.find_by(id: trimester.id - 1)
   next unless previous_trimester
 
   previous_intro_course = Course.find_by(trimester_id: previous_trimester.id, coding_class_id: CodingClass.find_by(title: 'Intro to Programming'))
