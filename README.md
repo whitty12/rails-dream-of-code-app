@@ -2,12 +2,16 @@
 
 1. Follow the instructions in Lesson 1 to set up your machine with Ruby and Rails.
 2. Once you've verified both Ruby and Rails are installed properly, fork this repository and then clone your fork to your source directory (wherever you keep your source code.)
-3. In a terminal window, navigate to the root directory of the project and run `bundle install`. This installs any additional gems the project needs on your local machine.
-4. In a terminal window and in the root directory of the project, run the following command to set up the database and starter data:
-  ```
-  bin/rails db:setup
-  ```
-  This runs the rails executable's db:setup command, which creates development and test databases with the current schema. It also populates the development database with data created by running `db/seeds.rb`.
+3. In a terminal window, navigate to the root directory of the project and run
+   ```
+   bundle install
+   ```
+   This installs any additional gems the project needs on your local machine.
+5. In a terminal window and in the root directory of the project, run the following command to set up the database and starter data:
+   ```
+   bin/rails db:setup
+   ```
+   This runs the rails executable's db:setup command, which creates development and test databases with the current schema. It also populates the development database with data created by running `db/seeds.rb`.
 
 ## SQLite Database GUI
 
