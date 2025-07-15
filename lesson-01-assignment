@@ -1,6 +1,5 @@
-//Question 1
-    #Note: The emails and names don't match between the spreadsheet and database we are given   
-    #Note: Am I able to simplify any of these? 
+##Question 1
+    #Note: I commented out the information, but kept as a record of the steps I used to reach these commands
 
     41, classie.mcclure@oconner-rippin.example
     42, mario@dubuque-block.example
@@ -14,19 +13,19 @@
 
     #Get this information from the Query:
     #<Enrollment:0x00007fe987368850
-    id: 71,
-    course_id: 5,
-    student_id: 41,
-    final_grade: "completed",
-    created_at: "2025-07-09 19:37:52.285639000 +0000",
-    updated_at: "2025-07-09 19:37:52.285639000 +0000">,
+    #id: 71,
+    #course_id: 5,
+    #student_id: 41,
+    #final_grade: "completed",
+    #created_at: "2025-07-09 19:37:52.285639000 +0000",
+    #updated_at: "2025-07-09 19:37:52.285639000 +0000">,
     #<Enrollment:0x00007fe987368710
-    id: 72,
-    course_id: 5,
-    student_id: 42,
-    final_grade: "completed",
-    created_at: "2025-07-09 19:37:52.333757000 +0000",
-    updated_at: "2025-07-09 19:37:52.333757000 +0000">,
+    #id: 72,
+    #course_id: 5,
+    #student_id: 42,
+    #final_grade: "completed",
+    #created_at: "2025-07-09 19:37:52.333757000 +0000",
+    #updated_at: "2025-07-09 19:37:52.333757000 +0000">,
 
     #Next, find the students attached to the ID and get the email
     Student.find_by(id:41).email
@@ -34,7 +33,7 @@
     #Do the same for the second student:
     Student.find_by(id:42).email
 
-    //Using queries:
+    ##Using queries:
     Enrollment.where(course_id:5,final_grade:nil)
     Student.find_by(id:3)
     Student.find_by(id:3).email
@@ -42,55 +41,56 @@
     Student.find_by(id:6)
     Student.find_by(id:6).email
 
-//Question 2
+#Question 2
     25, trevor@homenick.example
     26, tyrell@lubowitz-hills.test
 
-    //Using Queries:
+    ##Using Queries:
     #Query the enrollment information, but add the condition of 'nil' for no grade entered:
     Enrollment.where(course_id:5, final_grade:nil)
 
-    #Get this information:
+    ##Get this information:
     #<Enrollment:0x00007fe98736aa10
-    id: 73,
-    course_id: 5,
-    student_id: 43,
-    final_grade: nil,
-    created_at: "2025-07-09 19:37:52.379228000 +0000",
-    updated_at: "2025-07-09 19:37:52.379228000 +0000">,
+    #id: 73,
+    #course_id: 5,
+    #student_id: 43,
+    #final_grade: nil,
+    #created_at: "2025-07-09 19:37:52.379228000 +0000",
+    #updated_at: "2025-07-09 19:37:52.379228000 +0000">,
+    
     #<Enrollment:0x00007fe98736a8d0
-    id: 76,
-    course_id: 5,
-    student_id: 46,
-    final_grade: nil,
-    created_at: "2025-07-09 19:37:52.533921000 +0000",
-    updated_at: "2025-07-09 19:37:52.533921000 +0000">,
+    #id: 76,
+    #course_id: 5,
+    #student_id: 46,
+    #final_grade: nil,
+    #created_at: "2025-07-09 19:37:52.533921000 +0000",
+    #updated_at: "2025-07-09 19:37:52.533921000 +0000">,
     #<Enrollment:0x00007fe98736a650
-    id: 79,
-    course_id: 5,
-    student_id: 49,
-    final_grade: nil,
-    created_at: "2025-07-09 19:37:52.669602000 +0000",
-    updated_at: "2025-07-09 19:37:52.669602000 +0000">]
+    #id: 79,
+    #course_id: 5,
+    #student_id: 49,
+    #final_grade: nil,
+    #created_at: "2025-07-09 19:37:52.669602000 +0000",
+    #updated_at: "2025-07-09 19:37:52.669602000 +0000">]
 
     #Next find the mentors attached to enrollment id 73, 76
     MentorEnrollmentAssignment.find_by(enrollment_id: 73)
 
     #<MentorEnrollmentAssignment:0x00007fe987361050
-    id: 73,
-    mentor_id: 25,
-    enrollment_id: 73,
-    created_at: "2025-07-09 19:37:57.610486000 +0000",
-    updated_at: "2025-07-09 19:37:57.610486000 +0000">
+    #id: 73,
+    #mentor_id: 25,
+    #enrollment_id: 73,
+    #created_at: "2025-07-09 19:37:57.610486000 +0000",
+    #updated_at: "2025-07-09 19:37:57.610486000 +0000">
 
     MentorEnrollmentAssignment.find_by(enrollment_id: 76)
 
     #<MentorEnrollmentAssignment:0x00007fe987361910
-    id: 76,
-    mentor_id: 26,
-    enrollment_id: 76,
-    created_at: "2025-07-09 19:37:57.695838000 +0000",
-    updated_at: "2025-07-09 19:37:57.695838000 +0000">
+    #id: 76,
+    #mentor_id: 26,
+    #enrollment_id: 76,
+    #created_at: "2025-07-09 19:37:57.695838000 +0000",
+    #updated_at: "2025-07-09 19:37:57.695838000 +0000">
 
     #Last, use the mentor_id to find the email
     Mentor.find_by(id: 25).email
