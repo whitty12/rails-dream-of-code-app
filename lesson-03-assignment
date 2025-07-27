@@ -1,0 +1,62 @@
+1. We'll need a table for topics, lessons, and a join table between lessons and topics. Lessons: has many topics, and Topics: has many lessons. The join table should use the ids of lessons and topics.
+
+2. For the Topic table, we need an id column and a topic_title column containing a string of the name. For the join table, we need the integer for the lesson_id associated with the topic_id, also an integer.
+
+
+#How I used AI: I asked it to explain the difference between a join table and the function .join() 
+#I referenced these Stackoverflows when I got stuck: https://stackoverflow.com/questions/16153551/how-to-reference-values-in-a-join-table-for-a-rails-where-method, https://stackoverflow.com/questions/7606124/using-join-tables-in-ruby-on-rails in combination with the migration guide incluing the association page: https://guides.rubyonrails.org/association_basics.html.
+
+Steps in the console:
+(1) bin/rails generate migration create_topics #create the migration file
+(2) bin/rails db:migrate
+(3) Create topic.rb file
+(4) Create the Topic class in the ApplicationRecord, starting with has_many :lessons
+(5) Next, create the migration for the join table bin/rails generate migration create_lesson_topic
+(6) Migrate again
+(7) Define our join table model and associations
+(8) Now we create topics for each tag: SQL,...., HTTP using Topic.create!(topic_title: '<name of topic>')
+(9) Topic.all to test that they are added correctly (words)
+(10) LessonTopic.create!(lesson_id: Lesson.first.id, topic_id: Topic.first.id)
+
+
+```ruby
+#We need a topic migration
+class CreateTopics < ActiveRecord::Migration[8.0]
+    def change
+        create_table :topics do |t|
+            t.string :topic_title
+
+            t.timestamps
+        end
+    end
+end
+
+#We need a topic class, which has many lessons
+class Topic < ApplicationRecord
+    has_many :lesson_topics
+    has_many :lessons, :through => :lesson_topics
+end
+
+#Note: Change the lesson table so it has many lessons with joins in lesson_topic
+class Lesson < ApplicationRecord
+    has_many :lesson_topics
+    has_many :topics, :through => :lesson_topics
+end
+
+#We need a join table migration
+class CreateJoinTableLessonTopic < ActiveRecord::Migration[8.0]
+    def change
+        create_join_table :lessons, :topics do |t|
+            t.index [:lesson_id, :topic_id]
+
+            t.timestamps
+        end
+    end
+end
+
+#We need a joint table. There can only be one set of joinings, for example, data_modeling and ruby is one joining. Or, Ruby and SQL is another joining. You could have Python and SQL, but this would be yet another combination.
+class LessonTopic < ApplicationRecord
+    belongs_to :lesson
+    belongs_to :topic
+end
+```
