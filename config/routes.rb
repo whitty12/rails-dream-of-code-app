@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "/trimesters", to: "trimesters#index"
   get "/trimesters/:id", to: "trimesters#show" 
   get "/dashboard", to: "admin_dashboard#index"
+  get "/courses/:id", to: "courses#show"
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
