@@ -3,14 +3,14 @@
 <h2><%= "#{@current_trimester.term} - #{@current_trimester.year}" %></h2>
 <ul>
  <% @current_trimester.courses.each do |course| %>
-   <li><a href=""><%= course.coding_class.title %></a></li>
+   <li><%= link_to "#{course.coding_class.title}", course %></a></li>
  <% end %>
 </ul>
 
 <h2><%= "#{@upcoming_trimester.term} - #{@upcoming_trimester.year}" %></h2>
 <ul>
  <% @upcoming_trimester.courses.each do |course| %>
-   <li><a href=""><%= course.coding_class.title %></a></li>
+   <li><%= link_to "#{course.coding_class.title}", course %></a></li>
  <% end %>
 </ul>
 
