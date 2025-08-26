@@ -32,7 +32,7 @@ RSpec.describe Course, type: :model do
     it 'is valid when both coding_class and trimester are present' do
       expect(course).to be_valid
     end
-
+    
     it 'is not valid without a coding_class' do
       course.coding_class = nil
       expect(course).to_not be_valid
@@ -44,7 +44,7 @@ RSpec.describe Course, type: :model do
     end
   end
 
-  describe '.student_name_list', skip: true do
+  describe '.student_name_list' do
     # First, we'll write a test that expects the method to exist
     # for an instance of a course
     it 'exists for a course' do
@@ -95,13 +95,18 @@ RSpec.describe Course, type: :model do
         ]
       }
 
+
+      #TODO: Add test for the course name and student name
+      it 'returns a course name and an enrolled student' do
+      end
+
       it 'returns an array of student names' do
         expect(course.student_name_list).to eq(expected_results)
       end
     end
   end
 
-  describe '.student_email_list', skip: true do
+  describe '.student_email_list' do
     it 'exists for a course' do
       expect { course.student_email_list }.not_to raise_error(NoMethodError)
     end
