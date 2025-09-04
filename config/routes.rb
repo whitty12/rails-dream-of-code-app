@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
+  
+  get "students/sorted_students", to: "students#sorted_students"
   resources :students
   resources :mentors
   resources :enrollments
   resources :mentor_enrollment_assignments
   resources :lessons
-  resources :courses
+  resources :courses do
+    resources :submissions
+  end
   resources :coding_classes
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
