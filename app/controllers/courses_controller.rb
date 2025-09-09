@@ -13,6 +13,8 @@ class CoursesController < ApplicationController
   # GET /courses/new
   def new
     @course = Course.new
+    @coding_classes = CodingClass.where(params[@course.id])
+    @trimesters = Trimester.where(params[@course.id])
   end
 
   # GET /courses/1/edit
@@ -21,16 +23,33 @@ class CoursesController < ApplicationController
 
   # POST /courses or /courses.json
   def create
+        @course = Course.new(course_params)
+
+    respond_to do |format|
+      if @course.save
+        # Redirect to the course page
+        format.html { redirect_to @course, notice: "Course was successfully created." }
+        format.json { render :show, status: :created, location: @course }
+      else
+        # Re-render the new course form. The view already contains
+        # logic to display the errors in @course.errors
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @course.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /courses/1 or /courses/1.json
   def update
     respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to @course, notice: "Course was successfully updated." }
-        format.json { render :show, status: :ok, location: @course }
+      if @course.save
+        # Redirect to the course page
+        format.html { redirect_to @course, notice: "Course was successfully created." }
+        format.json { render :show, status: :created, location: @course }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        # Re-render the new course form. The view already contains
+        # logic to display the errors in @course.errors
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
