@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :submissions
   end
   resources :coding_classes
+  resources :trimesters
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   get "/trimesters/:id", to: "trimesters#show" 
   get "/dashboard", to: "admin_dashboard#index"
   get "/courses/:id", to: "courses#show"
+  get "trimesters/:id", to: "trimesters#show"
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
