@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_01_191924) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_18_212416) do
   create_table "coding_classes", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -38,6 +38,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_01_191924) do
     t.index ["student_id"], name: "index_enrollments_on_student_id"
   end
 
+  create_table "lesson_topics", force: :cascade do |t|
+    t.integer "topic_id"
+    t.integer "lesson_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_lesson_topics_on_lesson_id"
+    t.index ["topic_id"], name: "index_lesson_topics_on_topic_id"
+  end
+
   create_table "lessons", force: :cascade do |t|
     t.integer "course_id", null: false
     t.integer "lesson_number"
@@ -47,6 +56,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_01_191924) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_lessons_on_course_id"
+  end
+
+  create_table "lessons_topics", id: false, force: :cascade do |t|
+    t.integer "lesson_id", null: false
+    t.integer "topic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id", "topic_id"], name: "index_lessons_topics_on_lesson_id_and_topic_id"
   end
 
   create_table "mentor_enrollment_assignments", force: :cascade do |t|
@@ -75,6 +92,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_01_191924) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.integer "enrollment_id"
+    t.integer "lesson_id"
+    t.integer "mentor_id"
+    t.string "pull_request_url"
+    t.string "review_result"
+    t.datetime "reviewed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["enrollment_id"], name: "index_submissions_on_enrollment_id"
+    t.index ["lesson_id"], name: "index_submissions_on_lesson_id"
+    t.index ["mentor_id"], name: "index_submissions_on_mentor_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "topic_title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "trimesters", force: :cascade do |t|
     t.string "year"
     t.string "term"
@@ -83,6 +120,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_01_191924) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username", null: false
+    t.string "password_digest", null: false
+    t.string "role", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "courses", "coding_classes"

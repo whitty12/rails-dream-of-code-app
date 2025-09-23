@@ -13,4 +13,6 @@
   <% end %>
 </div>
 
-<%= link_to "New course", new_course_path %>
+<% if session[:role]== 'admin' %>
+  <%= link_to "New course", new_course_path %>
+<% end %>

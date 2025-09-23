@@ -23,10 +23,31 @@
     <%= stylesheet_link_tag :app %>
   </head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg header">
-      <%= image_tag 'doc.png', alt: 'Dream of Code', height: '100' %>
-    </nav>
+   <body>
+    <div class="header">
+      <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-end">
+        <div class="d-flex align-items-end">
+          <%= image_tag 'doc.png', alt: 'Dream of Code', height: '100' %>
+          <ul class="navbar-nav">
+            <% if session[:user_id] %>
+              <li class='nav-item'>
+                <% user = User.find_by(id: session[:user_id]) %>
+                <% if user %>
+                  <span class="nav-link">Welcome, <%= user.username %>!</span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="login-logout">
+          <% if session[:user_id] %>
+            <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-link nav-link', data: { confirm: 'Are you sure you want to log out?' } %>
+          <% else %>
+            <%= link_to 'Login', login_path, class: 'logout-link nav-link' %>
+          <% end %>
+        </div>
+      </nav>
+    </div>
     <div class='container main-container'>
       <%= yield %>
     </div>
