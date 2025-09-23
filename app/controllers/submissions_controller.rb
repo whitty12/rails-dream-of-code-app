@@ -1,7 +1,9 @@
 class SubmissionsController < ApplicationController
+  before_action :require_student, only: %i[ create ]
+  before_action :require_mentor, only: %i[ edit update ]
+
   # GET /submissions/new
   def new
-
     @course = Course.find(params[:course_id])
     @submission = Submission.new
     @enrollments = Enrollment.where(params[@course.id])# TODO: What set of enrollments should be listed in the dropdown?
@@ -9,6 +11,7 @@ class SubmissionsController < ApplicationController
   end
 
   def create
+    #only students can create submissions
     @course = Course.find(params[:course_id])
     @submission = Submission.new(submission_params)
 
@@ -23,6 +26,7 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions/1/edit
   def edit
+    #only mentors can update submissions
   end
 
   # PATCH/PUT /submissions/1 or /submissions/1.json

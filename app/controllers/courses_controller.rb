@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :require_admin, only: %i[ create update destroy ]
 
   # GET /courses or /courses.json
   def index
@@ -19,11 +20,15 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+    @coding_classes = CodingClass.where(params[@course.id])
+    @trimesters = Trimester.where(params[@course.id])
   end
 
   # POST /courses or /courses.json
   def create
-        @course = Course.new(course_params)
+    @course = Course.new(course_params)
+    @coding_classes = CodingClass.where(params[@course.id])
+    @trimesters = Trimester.where(params[@course.id])
 
     respond_to do |format|
       if @course.save
