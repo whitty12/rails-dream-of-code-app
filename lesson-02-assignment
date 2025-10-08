@@ -1,0 +1,56 @@
+#Question 1
+#Start by creating our new trimester term so we can call it in the loop
+Trimester.create(year:'2026',term:'Spring',application_deadline:'2026-02-15', start_date:'2026-03-01', end_date:'2026-5-31')
+
+#Now call each coding course and create and associated course (Note: we can't use the noun 'class' because of oop related things)
+available_classes.each do |program|
+    #see which class ids are being called 
+    puts program_id
+    Course.create(coding_class_id:program.id, trimester_id:8,max_enrollment:'25')
+end
+
+#Test with this command
+Course.where(trimester_id: 8)
+
+#Question 2
+#Create a new student, Victor Way
+Student.create(first_name:'Victor', last_name:'Way',email:'vway@foobar.test')
+
+#Now, we need to enroll our new student by adding to enrollments. First, we call the courses we made earlier to find the id we need:
+Course.where(trimester_id:8,coding_class_id:1)
+
+#I accidentally added the wrong enrollment, so the new id is 92 instead of 91.
+Enrollment.create(course_id:36,student_id:51)
+
+#We need to find the mentors that have less than two enrollees
+#Pseudocode
+    mentors_less_than_two = []
+    mentor_assignment= [mentor, enrollees]
+    foreach(mentor_assignment){
+        if(enrollees.length() < 2){
+            mentors_less_than_two.add(mentor_assignment)
+        }
+    }
+
+#How I used AI: I asked it to give me examples of several things in combination with posts from StackOverflow: joins, group, has_many, belongs_to, and asked it what command do I use to count? I only turned to AI because I was struggling to understand the explanations as well as the ActiveRecord API. I asked it to explain the use cases for diffrent commands. Using this, I went through several iterations where I tried to loop, assigned multiple variables, and attempted to join the mentorassignments and students. I learned that I can't join within the file and the difference between group and group_by, sum, and count by experimenting with different lines.
+#It took me about an hour, but I landed on the code below. I struggled a bit with understanding what variables I should have been calling, but then I used MentorEnrollmentAssignment.group(:mentor_id).count and debugging using the puts command and recieved an array of relations that looked like this {1=> 3, ...., 20 => 3,....31=> 1} signifying the relationship between the number of enrollment ids to mentors. Then, using the commands I learned before, I wrote the code below which gave me the mentor id of 31 who had one student assigned.
+
+#The code to find the mentor
+MentorEnrollmentAssignment.group(:mentor_id).having('COUNT(enrollment_id) < 2')
+
+#Now we assign the mentor to the enrollment
+MentorEnrollmentAssignment.create(mentor_id:31,enrollment_id:92)
+
+#Question 3
+#Write a description of your project idea. Try to answer the questions below in your description if they are applicable.
+# I would make an online store for art, writing and related hobbies. I can expand on it to add things like selling book covers and website ads, 
+#but it would start with selling books, various arts like stickers or posters, and DnD modules. I also want the website to offer promotional tools for other artists and authors.
+# Users can rate and purchase items from art, DnD, writing, and short story categories with some having promotions and featured categories.
+# Users should be able to submit forms to make special comission requests or ask for support. There should be about pages for artists and authors involved in projects,
+# as well as a general FAQ page, alongside a shop with a cart.
+
+#Question 4
+# I will be attaching a pdf image. Basic nouns would be product type, product, artwork, title, creator, shop, 
+#promotion, details, dnd_version, word count, pages, price, in stock, dimension, pen name, first name, last name,books, short stories, dnd module. Potentially also cart or checkout.
+# A product has many types, creators can have many products, each subtype of product has a title, art has dimenstions, shops have products. Products have promotions, prices, and details. DnD modules have a version of the rulebook. 
+# Creators can have a pen name or first and last name.

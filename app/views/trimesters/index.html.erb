@@ -1,0 +1,10 @@
+<h1>Trimesters</h1>
+<ul>
+  <% Trimester.all.each do |trimester| %>
+   <li><%=link_to "#{trimester.term} #{trimester.year}", trimester %></li>
+  <% end %>
+  
+  <% if session[:role]== 'admin' %>
+    <%= link_to "New trimester", new_trimester_path %>
+  <% end %>
+<ul>

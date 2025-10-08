@@ -1,0 +1,11 @@
+<h1> Alphabetical List of Students </h1>
+<div id="students">
+  <% if @students.any? %>
+    <% @students.each do |student| %>
+      <%= render student %>
+      <p>
+        <%= link_to "Show this student", student %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
