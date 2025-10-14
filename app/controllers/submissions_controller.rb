@@ -1,27 +1,32 @@
 class SubmissionsController < ApplicationController
+  before_action :require_student, only: %i[ create ]
+  before_action :require_mentor, only: %i[ edit update ]
+
   # GET /submissions/new
   def new
     @course = Course.find(params[:course_id])
     @submission = Submission.new
-    @enrollments # TODO: What set of enrollments should be listed in the dropdown?
-    @lessons # TODO: What set of lessons should be listed in the dropdown?
+    @enrollments = Enrollment.where(params[@course.id])# TODO: What set of enrollments should be listed in the dropdown?
+    @lessons = Lesson.where(params[@course.id]) # TODO: What set of lessons should be listed in the dropdown?
   end
 
   def create
+    #only students can create submissions
     @course = Course.find(params[:course_id])
     @submission = Submission.new(submission_params)
 
     if @submission.save
       redirect_to course_path(@course), notice: 'Submission was successfully created.'
     else
-      @enrollments # TODO: Set this up just as in the new action
-      @lessons # TODO: Set this up just as in the new action
+      @enrollments = Enrollment.where(params[@course.id]) # TODO: Set this up just as in the new action
+      @lessons = Lesson.where(params[@course.id]) # TODO: Set this up just as in the new action
       render :new
     end
   end
 
   # GET /submissions/1/edit
   def edit
+    #only mentors can update submissions
   end
 
   # PATCH/PUT /submissions/1 or /submissions/1.json
